@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import "./globals.css";
 
 const SITE_URL = "https://runcaremassage.netlify.app";
 const SITE_NAME = "런케어마사지";
+const SUPPORT_PHONE = "0507-1280-3199";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -71,3 +73,56 @@ export const metadata: Metadata = {
     },
   },
 };
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  const globalStructuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": `${SITE_URL}/#website`,
+        url: SITE_URL,
+        name: SITE_NAME,
+        alternateName: ["런케어", "서울 출장 케어 런케어", "Runcare Massage"],
+        description: "서울·경기·인천 24시간 프라이빗 방문 웰니스 홈케어 안내 플랫폼",
+        inLanguage: "ko-KR",
+        publisher: {
+          "@id": `${SITE_URL}/#organization`,
+        },
+      },
+      {
+        "@type": "Organization",
+        "@id": `${SITE_URL}/#organization`,
+        name: SITE_NAME,
+        url: SITE_URL,
+        logo: `${SITE_URL}/logo.png`,
+        telephone: SUPPORT_PHONE,
+        contactPoint: {
+          "@type": "ContactPoint",
+          telephone: SUPPORT_PHONE,
+          contactType: "customer service",
+          areaServed: "KR",
+          availableLanguage: "Korean",
+        },
+      },
+    ],
+  };
+
+  return (
+    <html lang="ko">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(globalStructuredData) }}
+        />
+      </head>
+      <body className="bg-[#050505] text-gray-100 min-h-screen flex flex-col font-sans selection:bg-amber-500 selection:text-black antialiased">
+        {children}
+      </body>
+    </html>
+  );
+}

@@ -1,7 +1,6 @@
-@import "tailwindcss";
-
-/* 🌟 고품질 한글 가독성을 위한 Pretendard 웹폰트 */
+/* 🌟 웹폰트 import가 파일 최상단에 와야 합니다 */
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+@import "tailwindcss";
 
 :root {
   --background: #08080a;
